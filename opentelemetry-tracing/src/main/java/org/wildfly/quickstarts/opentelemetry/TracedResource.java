@@ -42,6 +42,11 @@ public class TracedResource {
     @Path(TRACE_IMPLICIT)
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
+        try {
+            Thread.sleep((long) (Math.random() * 1000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return "hello";
     }
 

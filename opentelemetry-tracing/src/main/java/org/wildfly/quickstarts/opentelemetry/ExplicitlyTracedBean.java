@@ -21,6 +21,12 @@ public class ExplicitlyTracedBean {
         Span processHelloSpan = tracer.spanBuilder("process-hello").startSpan();
         processHelloSpan.makeCurrent();
 
+        try {
+            Thread.sleep((long) (Math.random() * 1000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         hello = hello.toUpperCase();
 
         processHelloSpan.end();
