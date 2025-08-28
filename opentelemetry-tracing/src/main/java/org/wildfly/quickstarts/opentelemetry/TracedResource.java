@@ -42,12 +42,14 @@ public class TracedResource {
     @Path(TRACE_IMPLICIT)
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
+        long millis = (long) (Math.random() * 10_000);
+
         try {
-            Thread.sleep((long) (Math.random() * 1000));
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return "hello";
+        return "hello after " + millis + " ms\n";
     }
 
     @GET

@@ -16,22 +16,20 @@ public class ExplicitlyTracedBean {
         Span prepareHelloSpan = tracer.spanBuilder("prepare-hello").startSpan();
         prepareHelloSpan.makeCurrent();
 
-        String hello = "hello";
-
         Span processHelloSpan = tracer.spanBuilder("process-hello").startSpan();
         processHelloSpan.makeCurrent();
 
+        long millis = (long) (Math.random() * 10_000);
+
         try {
-            Thread.sleep((long) (Math.random() * 1000));
+            Thread.sleep(millis);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        hello = hello.toUpperCase();
-
         processHelloSpan.end();
         prepareHelloSpan.end();
 
-        return hello;
+        return ("hello after " + millis + " ms\n").toUpperCase();
     }
 }
