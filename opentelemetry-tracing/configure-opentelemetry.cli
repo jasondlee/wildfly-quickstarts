@@ -9,9 +9,9 @@ end-if
 #    /subsystem=microprofile-telemetry:add
 #end-if
 
-if (outcome != success) of /system-property=otel.sdk.disabled:read-resource
-    /system-property=otel.sdk.disabled:add(value=false)
-end-if
+#if (outcome != success) of /system-property=otel.sdk.disabled:read-resource
+#    /system-property=otel.sdk.disabled:add(value=false)
+#end-if
 
 /subsystem=opentelemetry:write-attribute(name=endpoint,value=http://${OTEL_COLLECTOR_HOST:localhost}:4317)
 /subsystem=opentelemetry:write-attribute(name=exporter-type,value=otlp)
